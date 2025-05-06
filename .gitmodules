@@ -1,3 +1,6 @@
 [submodule "plugins/MultipleLocalAuth"]
 	path = plugins/MultipleLocalAuth
 	url = https://github.com/mapasculturais/plugin-MultipleLocalAuth
+[submodule "themes/Funarte"]
+	path = themes/Funarte
+	url = https://github.com/RedeMapas/theme-Funarte
