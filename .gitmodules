@@ -1,3 +1,6 @@
 [submodule "plugins/MultipleLocalAuth"]
 	path = plugins/MultipleLocalAuth
 	url = https://github.com/mapasculturais/plugin-MultipleLocalAuth
+[submodule "themes/PeriferiaViva25"]
+	path = themes/PeriferiaViva25
+	url = https://github.com/Periferias/theme-ppv-25
