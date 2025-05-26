@@ -33,6 +33,11 @@ services:
       - BUILD_ASSETS=1
       - MAILER_TRANSPORT=smtp://mailhog:1025
       - MAILER_FROM=sysadmin@localhost
+      - REGISTRATION_PREFIX=PPV25-
+      - DISABLE_AGENTS=true
+      - DISABLE_SPACES=true
+      - DISABLE_PROJECTS=true
+      - DISABLE_EVENTS=true
 
     depends_on:
       - db
