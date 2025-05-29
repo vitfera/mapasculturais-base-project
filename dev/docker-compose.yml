@@ -38,6 +38,7 @@ services:
       - DISABLE_SPACES=true
       - DISABLE_PROJECTS=true
       - DISABLE_EVENTS=true
+      - DISABLE_OPPORTUNITIES=true
 
     depends_on:
       - db
