@@ -4,3 +4,6 @@
 [submodule "themes/PeriferiaViva25"]
 	path = themes/PeriferiaViva25
 	url = https://github.com/Periferias/theme-ppv-25
+[submodule "plugins/ValuersManagement"]
+	path = plugins/ValuersManagement
+	url = https://github.com/mapasculturais/plugin-ValuersManagement
