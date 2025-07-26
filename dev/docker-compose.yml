@@ -22,6 +22,7 @@ services:
       # themes and plugins
       - ../plugins/SamplePlugin:/var/www/src/plugins/SamplePlugin
       - ../plugins/MultipleLocalAuth:/var/www/src/plugins/MultipleLocalAuth
+      - ../plugins/ValuersManagement:/var/www/src/plugins/ValuersManagement
 
       - ../themes/PeriferiaViva25:/var/www/src/themes/PeriferiaViva25
 
