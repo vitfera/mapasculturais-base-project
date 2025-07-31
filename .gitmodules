@@ -6,4 +6,4 @@
 	url = https://github.com/Periferias/theme-ppv-25
 [submodule "plugins/ValuersManagement"]
 	path = plugins/ValuersManagement
-	url = https://github.com/mapasculturais/plugin-ValuersManagement
+	url = https://github.com/Periferias/plugin-ValuersManagement
