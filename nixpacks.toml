@@ -15,6 +15,9 @@ WHATSAPP_ENABLED = "true"
 WHATSAPP_NUMBER = ""
 WHATSAPP_MESSAGE = "Olá! Gostaria de falar com vocês."
 
+[start]
+cmd = "apache2-foreground"
+
 [phases.setup]
 cmds = [
     "echo 'Setting up Mapas Culturais Base Project'",
