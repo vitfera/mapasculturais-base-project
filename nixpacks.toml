@@ -3,47 +3,28 @@
 
 [variables]
 # Variáveis de ambiente essenciais para o Mapas Culturais
-# Database
 DB_HOST = "db"
 DB_PORT = "5432"
 DB_NAME = "mapas"
 DB_USER = "mapas"
 DB_PASS = ""
-
-# Redis
 REDIS_CACHE = "redis"
-
-# App settings
 APP_MODE = "production"
 APP_ENV = "production"
-
-# Plugins - WhatsApp Floating Button
 WHATSAPP_ENABLED = "true"
 WHATSAPP_NUMBER = ""
 WHATSAPP_MESSAGE = "Olá! Gostaria de falar com vocês."
 
 [phases.setup]
-# Fase de setup - instalação de dependências
 cmds = [
     "echo 'Setting up Mapas Culturais Base Project'",
-    "apt-get update && apt-get install -y curl wget git unzip"
+    "apt-get update && apt-get install -y curl wget git unzip gettext"
 ]
 
 [phases.build] 
-# Fase de build - preparação dos assets e configurações
 cmds = [
     "echo 'Building assets and configurations...'",
     "chmod +x *.sh || true",
+    "find . -name '*.po' -exec msgfmt {} -o {}.mo \\; || true",
     "echo 'Build phase completed'"
 ]
-
-[phases.install]
-# Fase de instalação - configuração final  
-cmds = [
-    "echo 'Installing Mapas Culturais'",
-    "echo 'Installation completed'"
-]
-
-# Configuração do PHP
-[providers]
-php = "8.4"
