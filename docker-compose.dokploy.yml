@@ -1,0 +1,96 @@
+# Docker Compose para desenvolvimento no Dokploy
+# Mapas Culturais Base Project
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mapas-app
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=mapas
+      - DB_USER=mapas
+      - DB_PASS=mapas123
+      - REDIS_CACHE=redis:6379
+      - APP_MODE=production
+      - BASE_URL=${BASE_URL:-http://localhost}
+      - WHATSAPP_ENABLED=${WHATSAPP_ENABLED:-true}
+      - WHATSAPP_NUMBER=${WHATSAPP_NUMBER:-}
+      - WHATSAPP_MESSAGE=${WHATSAPP_MESSAGE:-Olá! Gostaria de falar com vocês.}
+    volumes:
+      - files_data:/var/www/html/files
+      - assets_data:/var/www/html/assets
+      - logs_data:/var/www/html/logs
+    ports:
+      - "80:80"
+    networks:
+      - mapas-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  postgres:
+    image: postgis/postgis:14-3.2
+    container_name: mapas-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=mapas
+      - POSTGRES_USER=mapas
+      - POSTGRES_PASSWORD=mapas123
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=pt_BR.UTF-8 --lc-ctype=pt_BR.UTF-8
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    networks:
+      - mapas-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mapas -d mapas"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: mapas-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - mapas-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  mapas-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  files_data:
+    driver: local
+  assets_data:
+    driver: local
+  logs_data:
+    driver: local

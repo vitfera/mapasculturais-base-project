@@ -1,0 +1,58 @@
+# Configuração do Nixpacks para Mapas Culturais Base Project
+# Deploy completo do sistema no Dokploy
+
+[build]
+# Comando de build para o Mapas Culturais
+cmd = "echo 'Building Mapas Culturais Base Project...'"
+
+[start]
+# Comando de inicialização - usa o script start.sh do projeto
+cmd = "./start.sh"
+
+[variables]
+# Variáveis de ambiente essenciais para o Mapas Culturais
+# Database
+DB_HOST = "db"
+DB_PORT = "5432"
+DB_NAME = "mapas"
+DB_USER = "mapas"
+DB_PASS = ""
+
+# Redis
+REDIS_CACHE = "redis"
+
+# App settings
+APP_MODE = "production"
+APP_ENV = "production"
+
+# Plugins - WhatsApp Floating Button
+WHATSAPP_ENABLED = "true"
+WHATSAPP_NUMBER = ""
+WHATSAPP_MESSAGE = "Olá! Gostaria de falar com vocês."
+
+[phases.setup]
+# Fase de setup - instalação de dependências
+cmds = [
+    "echo 'Setting up Mapas Culturais Base Project'",
+    "apt-get update",
+    "apt-get install -y curl wget git unzip"
+]
+
+[phases.build]
+# Fase de build - preparação dos assets e configurações
+cmds = [
+    "echo 'Building assets and configurations...'",
+    "chmod +x *.sh",
+    "echo 'Build phase completed'"
+]
+
+[phases.install]
+# Fase de instalação - configuração final
+cmds = [
+    "echo 'Installing Mapas Culturais'",
+    "echo 'Installation completed'"
+]
+
+[providers.php]
+# Configuração específica para PHP
+version = "8.1"

@@ -1,0 +1,175 @@
+# Configuração do Dokploy para Mapas Culturais Base Project
+version: "1.0"
+
+# Configurações do projeto
+project:
+  name: "mapas-culturais-base"
+  description: "Sistema Mapas Culturais com plugins customizados"
+  type: "application"
+
+# Configurações de build
+build:
+  context: "."
+  dockerfile: "Dockerfile"
+  
+# Variáveis de ambiente
+environment:
+  # Database PostgreSQL
+  - name: "DB_HOST"
+    value: "postgres"
+    required: true
+    description: "Host do banco de dados PostgreSQL"
+  
+  - name: "DB_PORT"
+    value: "5432"
+    required: false
+    description: "Porta do banco de dados"
+  
+  - name: "DB_NAME"
+    value: "mapas"
+    required: true
+    description: "Nome do banco de dados"
+  
+  - name: "DB_USER"
+    value: "mapas"
+    required: true
+    description: "Usuário do banco de dados"
+  
+  - name: "DB_PASS"
+    value: ""
+    required: true
+    description: "Senha do banco de dados"
+    
+  # Redis
+  - name: "REDIS_CACHE"
+    value: "redis:6379"
+    required: false
+    description: "Configuração do Redis para cache"
+    
+  # Application
+  - name: "APP_MODE"
+    value: "production"
+    required: false
+    description: "Modo da aplicação (development|production)"
+    
+  - name: "BASE_URL"
+    value: ""
+    required: true
+    description: "URL base da aplicação"
+    
+  - name: "BASE_DOMAIN"
+    value: ""
+    required: true
+    description: "Domínio base da aplicação"
+    
+  # Plugin WhatsApp Floating Button
+  - name: "WHATSAPP_ENABLED"
+    value: "true"
+    required: false
+    description: "Habilita o plugin do WhatsApp"
+  
+  - name: "WHATSAPP_NUMBER"
+    value: ""
+    required: false
+    description: "Número do WhatsApp com código do país"
+  
+  - name: "WHATSAPP_MESSAGE"
+    value: "Olá! Gostaria de falar com vocês."
+    required: false
+    description: "Mensagem padrão do WhatsApp"
+    
+  # Email/SMTP
+  - name: "MAILER_FROM"
+    value: "noreply@mapas.local"
+    required: false
+    description: "Email remetente padrão"
+    
+  - name: "MAILER_ALWAYSSENDFROM"
+    value: "true"
+    required: false
+    description: "Sempre enviar do email padrão"
+
+# Configurações de deployment
+deployment:
+  strategy: "rolling"
+  replicas: 1
+  
+# Volumes persistentes
+volumes:
+  - name: "files"
+    path: "/var/www/html/files"
+    description: "Arquivos uploads dos usuários"
+    
+  - name: "assets"
+    path: "/var/www/html/assets"
+    description: "Assets compilados"
+    
+  - name: "logs"
+    path: "/var/www/html/logs"
+    description: "Logs da aplicação"
+
+# Configurações de rede
+network:
+  ports:
+    - containerPort: 80
+      protocol: "TCP"
+      
+# Health check
+health:
+  enabled: true
+  path: "/health"
+  port: 80
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+# Recursos
+resources:
+  limits:
+    memory: "2Gi"
+    cpu: "1000m"
+  requests:
+    memory: "512Mi"
+    cpu: "200m"
+
+# Configurações de escala automática
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+# Services dependentes
+dependencies:
+  - name: "postgres"
+    image: "postgis/postgis:14-3.2"
+    environment:
+      POSTGRES_DB: "mapas"
+      POSTGRES_USER: "mapas"
+      POSTGRES_PASSWORD: "mapas123"
+    volumes:
+      - name: "postgres-data"
+        path: "/var/lib/postgresql/data"
+    ports:
+      - containerPort: 5432
+        
+  - name: "redis"
+    image: "redis:7-alpine"
+    ports:
+      - containerPort: 6379
+    volumes:
+      - name: "redis-data"
+        path: "/data"
+
+# Metadados
+metadata:
+  labels:
+    app: "mapas-culturais"
+    version: "6.0"
+    environment: "production"
+    framework: "php"
+  annotations:
+    description: "Sistema de gestão cultural Mapas Culturais"
+    repository: "https://github.com/vitfera/mapasculturais-base-project"
+    documentation: "https://github.com/mapasculturais/mapasculturais"
