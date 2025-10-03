@@ -55,4 +55,4 @@ cmds = [
 
 [providers.php]
 # Configuração específica para PHP
-version = "8.1"
+version = "8.4"

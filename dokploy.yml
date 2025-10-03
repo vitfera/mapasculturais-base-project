@@ -169,6 +169,7 @@ metadata:
     version: "6.0"
     environment: "production"
     framework: "php"
+    php-version: "8.4"
   annotations:
     description: "Sistema de gestão cultural Mapas Culturais"
     repository: "https://github.com/vitfera/mapasculturais-base-project"
