@@ -1,0 +1,2 @@
+# Este arquivo força o Dokploy a usar o Dockerfile em vez do Nixpacks
+# O projeto Mapas Culturais é complexo e precisa do Apache configurado
