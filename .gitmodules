@@ -4,3 +4,6 @@
 [submodule "themes/Funarte"]
 	path = themes/Funarte
 	url = https://github.com/RedeMapas/theme-Funarte
+[submodule "plugins/SpamDetector"]
+	path = plugins/SpamDetector
+	url = https://github.com/mapasculturais/plugin-SpamDetector.git
