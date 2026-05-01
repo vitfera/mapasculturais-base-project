@@ -4,3 +4,6 @@
 [submodule "plugins/SpamDetector"]
 	path = plugins/SpamDetector
 	url = https://github.com/mapasculturais/plugin-SpamDetector.git
+[submodule "plugins/Pnab"]
+	path = plugins/Pnab
+	url = https://github.com/vitfera/theme-Pnab
