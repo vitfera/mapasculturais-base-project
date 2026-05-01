@@ -22,7 +22,10 @@ services:
       # themes and plugins
       - ../plugins/SamplePlugin:/var/www/src/plugins/SamplePlugin
       - ../plugins/MultipleLocalAuth:/var/www/src/plugins/MultipleLocalAuth
-      - ../plugins/SpamDetector:/var/www/src/plugins/SpamDetector
+      #- ../plugins/SpamDetector:/var/www/src/plugins/SpamDetector
+      - ../plugins/AldirBlanc:/var/www/src/plugins/AldirBlanc
+
+      - ../themes/Pnab:/var/www/src/themes/Pnab
 
     environment:
       - PENDING_PCACHE_RECREATION_INTERVAL=10
@@ -32,6 +35,7 @@ services:
       - BUILD_ASSETS=1
       - MAILER_TRANSPORT=smtp://mailhog:1025
       - MAILER_FROM=sysadmin@localhost
+      - PNAB_CULTBR_MODE=development
 
     depends_on:
       - db
