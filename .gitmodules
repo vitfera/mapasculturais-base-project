@@ -1,9 +1,12 @@
-[submodule "plugins/MultipleLocalAuth"]
-	path = plugins/MultipleLocalAuth
-	url = https://github.com/mapasculturais/plugin-MultipleLocalAuth
 [submodule "plugins/SpamDetector"]
 	path = plugins/SpamDetector
 	url = https://github.com/mapasculturais/plugin-SpamDetector.git
 [submodule "themes/Pnab"]
 	path = themes/Pnab
 	url = https://github.com/vitfera/theme-Pnab
+[submodule "plugins/AldirBlanc"]
+	path = plugins/AldirBlanc
+	url = https://github.com/culturagovbr/plugin-AldirBlanc
+[submodule "plugins/MultipleLocalAuth"]
+	path = plugins/MultipleLocalAuth
+	url = https://github.com/mapasculturais/plugin-MultipleLocalAuth
