@@ -23,6 +23,10 @@ services:
       - ../plugins/SamplePlugin:/var/www/src/plugins/SamplePlugin
       - ../plugins/MultipleLocalAuth:/var/www/src/plugins/MultipleLocalAuth
       - ../plugins/SpamDetector:/var/www/src/plugins/SpamDetector
+      - ../plugins/MapasBlame:/var/www/src/plugins/MapasBlame
+      - ../plugins/AdminLoginAsUser:/var/www/src/plugins/AdminLoginAsUser
+      - ../plugins/Accessibility:/var/www/src/plugins/Accessibility
+      - ../plugins/RecreatePCacheOnLogin:/var/www/src/plugins/RecreatePCacheOnLogin
 
     environment:
       - PENDING_PCACHE_RECREATION_INTERVAL=10
