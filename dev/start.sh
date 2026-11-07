@@ -47,7 +47,9 @@ mkdir -p docker-data/saas-files
 
 touch docker-data/logs/app.log
 
-chown -R www-data: docker-data/assets docker-data/logs docker-data/private-files docker-data/public-files docker-data/saas-files
+if id -u www-data >/dev/null 2>&1; then
+    chown -R www-data: docker-data/assets docker-data/logs docker-data/private-files docker-data/public-files docker-data/saas-files
+fi
 
 docker compose run --service-ports mapas
 

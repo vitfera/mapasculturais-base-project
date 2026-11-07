@@ -24,11 +24,15 @@ services:
       - ../plugins/MultipleLocalAuth:/var/www/src/plugins/MultipleLocalAuth
       - ../plugins/SpamDetector:/var/www/src/plugins/SpamDetector
 
+      - ../themes/Obec:/var/www/src/themes/Obec
+
     environment:
       - PENDING_PCACHE_RECREATION_INTERVAL=10
       - JOBS_INTERVAL=10
       - REDIS_CACHE=redis
       - APP_MODE=development
+      - SESSIONS_SAVE_PATH=/tmp
+      - OBEC_SEAL_ID=${OBEC_SEAL_ID:-0}
       - BUILD_ASSETS=1
       - MAILER_TRANSPORT=smtp://mailhog:1025
       - MAILER_FROM=sysadmin@localhost
